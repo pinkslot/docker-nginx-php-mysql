@@ -1,15 +1,9 @@
 <?php
 
-include '../app/vendor/autoload.php';
-$foo = new App\Acme\Foo();
+use App\Acme\Kernel;use Symfony\Component\HttpFoundation\Request;include '../app/vendor/autoload.php';
 
-?><!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Docker <?php echo $foo->getName(); ?></title>
-    </head>
-    <body>
-        <h1>Docker <?php echo $foo->getName(); ?></h1>
-    </body>
-</html>
+$request = Request::createFromGlobals();
+$kernel = new Kernel();
+$response = $kernel->handleHttpRequest($request);
+$response->prepare($request);
+$response->send();

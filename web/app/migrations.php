@@ -10,7 +10,7 @@ return [
     ],
 
     'migrations_paths' => [
-        'App\Acme\Migrations' => './src/migration',
+        'App\Acme\Migrations' => './src/Migrations',
     ],
 
     'all_or_nothing' => true,

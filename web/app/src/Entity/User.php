@@ -5,7 +5,7 @@ namespace App\Acme\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Acme\Repository\UserRepository\DoctrineUserRepository")
  */
 class User
 {
@@ -14,15 +14,36 @@ class User
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $passwordHash;
+    private string $passwordHash;
+
+    public function __construct(string $username, string $password)
+    {
+        $this->username = $username;
+        $this->passwordHash = password_hash($password, null);
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function getPasswordHash(): string
+    {
+        return $this->passwordHash;
+    }
 }
