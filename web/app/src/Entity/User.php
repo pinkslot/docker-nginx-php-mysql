@@ -5,7 +5,7 @@ namespace App\Acme\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Acme\Repository\UserRepository\DoctrineUserRepository")
+ * @ORM\Entity(repositoryClass="App\Acme\Repository\UserRepository")
  */
 class User
 {
@@ -17,7 +17,7 @@ class User
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      */
     private string $username;
 
