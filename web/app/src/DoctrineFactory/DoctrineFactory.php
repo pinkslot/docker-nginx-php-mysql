@@ -7,16 +7,7 @@ use Doctrine\ORM\Tools\Setup;
 
 class DoctrineFactory
 {
-    private ?EntityManager $entityManager = null;
-
-    public function getEntityManager(): EntityManager
-    {
-        $this->entityManager ??= $this->createEntityManager();
-
-        return $this->entityManager;
-    }
-
-    private function createEntityManager(): EntityManager
+    public function createEntityManager(): EntityManager
     {
         $isDevMode = true;
         $proxyDir = null;

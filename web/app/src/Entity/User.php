@@ -42,8 +42,8 @@ class User
         return $this->username;
     }
 
-    public function getPasswordHash(): string
+    public function verifyPassword(string $password): bool
     {
-        return $this->passwordHash;
+        return password_verify($password, $this->passwordHash);
     }
 }

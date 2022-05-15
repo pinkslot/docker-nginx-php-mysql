@@ -20,7 +20,7 @@ class Authorizer
             return null;
         }
 
-        if (!password_verify($password, $user->getPasswordHash())) {
+        if (!$user->verifyPassword($password)) {
             return null;
         }
 
