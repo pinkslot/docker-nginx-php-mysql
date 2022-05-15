@@ -1,6 +1,18 @@
 {
+    "config": {
+        "platform": {
+            "php": "7.4.10"
+        }
+    },
     "require": {
-        "symfony/yaml": "^5.1"
+        "php": "^7.4.10",
+        "symfony/yaml": "^5.1",
+        "doctrine/orm": "^2.12",
+        "doctrine/migrations": "^3.5",
+        "symfony/cache": "^5.3",
+        "doctrine/annotations": "^1.13",
+        "symfony/http-foundation": "^5.4",
+        "symfony/dotenv": "^5.4"
     },
     "require-dev": {
         "phpmd/phpmd": "@stable",

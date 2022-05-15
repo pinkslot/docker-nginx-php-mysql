@@ -23,9 +23,6 @@ help:
 	@echo "  phpmd               Analyse the API with PHP Mess Detector"
 	@echo "  test                Test application"
 
-init:
-	@$(shell cp -n $(shell pwd)/web/app/composer.json.dist $(shell pwd)/web/app/composer.json 2> /dev/null)
-
 apidoc:
 	@docker run --rm -v $(shell pwd):/data phpdoc/phpdoc -i=vendor/ -d /data/web/app/src -t /data/web/app/doc
 	@make resetOwner
@@ -44,10 +41,13 @@ code-sniff:
 	@docker-compose exec -T php ./app/vendor/bin/phpcs -v --standard=PSR2 app/src
 
 composer-up:
-	@docker run --rm -v $(shell pwd)/web/app:/app composer update
+	@docker run --rm -v $(shell pwd)/web/app:/app composer install
 
-docker-start: init
-	docker-compose up -d
+migrate:
+	@docker-compose exec -T -w /var/www/html/app php ./vendor/bin/doctrine-migrations migrate
+
+docker-start:
+	@docker-compose up -d
 
 docker-stop:
 	@docker-compose down -v
