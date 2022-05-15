@@ -18,6 +18,8 @@ services:
             - php
             - mysqldb
     php:
+        env_file:
+            - ".env"
         image: nanoninja/php-fpm:${PHP_VERSION}
         restart: always
         volumes:

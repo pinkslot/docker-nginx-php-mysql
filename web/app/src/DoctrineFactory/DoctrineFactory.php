@@ -11,7 +11,9 @@ class DoctrineFactory
 
     public function getEntityManager(): EntityManager
     {
-        return $this->entityManager ?? $this->createEntityManager();
+        $this->entityManager ??= $this->createEntityManager();
+
+        return $this->entityManager;
     }
 
     private function createEntityManager(): EntityManager
@@ -20,7 +22,7 @@ class DoctrineFactory
         $proxyDir = null;
         $cache = null;
         $useSimpleAnnotationReader = false;
-        $paths = [__DIR__."../Entity"];
+        $paths = [__DIR__ . '/../Entity'];
         $config = Setup::createAnnotationMetadataConfiguration(
             $paths,
             $isDevMode,
@@ -29,12 +31,11 @@ class DoctrineFactory
             $useSimpleAnnotationReader,
         );
 
-// database configuration parameters
         $conn = array(
-            'dbname' => 'test',
-            'user' => 'dev',
-            'password' => 'dev',
-            'host' => 'mysql',
+            'dbname' => getenv('MYSQL_DATABASE'),
+            'user' => getenv('MYSQL_USER'),
+            'password' => getenv('MYSQL_PASSWORD'),
+            'host' => getenv('MYSQL_HOST'),
             'driver' => 'pdo_mysql',
         );
 
