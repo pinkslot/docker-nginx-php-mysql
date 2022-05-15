@@ -2,8 +2,8 @@
 
 namespace AppTest\Acme\Authorizer\UserRepository;
 
-use App\Acme\Authorizer\UserRepositoryInterface;
 use App\Acme\Entity\User;
+use App\Acme\Repository\UserRepository\UserRepositoryInterface;
 
 class MockUserRepository implements UserRepositoryInterface
 {

@@ -2,12 +2,7 @@
 
 namespace App\Acme;
 
-use App\Acme\Authorizer\Authorizer;
-use App\Acme\Authorizer\UserRepositoryInterface;
-use App\Acme\DoctrineFactory\DoctrineFactory;
-use App\Acme\Entity\User;
 use App\Acme\ServiceContainer\ServiceContainer;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,10 +34,10 @@ class Kernel
         $path = $request->getPathInfo();
         $method = $request->getMethod();
         if ($path === '/take-prize' && $method == 'POST') {
-            return $container->getPrizeController()->takePrize();
+            return $container->getPrizeController()->takePrize($user);
         }
         if ($path === '/state' && $method == 'GET') {
-            return $container->getPrizeController()->getState();
+            return $container->getPrizeController()->getState($user);
         }
 
         return new Response(file_get_contents(__DIR__ . '/../template/index.html'));

@@ -3,6 +3,7 @@
 namespace App\Acme\Authorizer;
 
 use App\Acme\Entity\User;
+use App\Acme\Repository\UserRepository\UserRepositoryInterface;
 
 class Authorizer
 {

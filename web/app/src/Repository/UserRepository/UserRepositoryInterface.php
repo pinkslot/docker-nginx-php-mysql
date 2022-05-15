@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Acme\Authorizer;
+namespace App\Acme\Repository\UserRepository;
 
 use App\Acme\Entity\User;
 

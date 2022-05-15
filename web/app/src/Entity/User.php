@@ -2,10 +2,11 @@
 
 namespace App\Acme\Entity;
 
+use App\Acme\Repository\UserRepository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Acme\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User
 {

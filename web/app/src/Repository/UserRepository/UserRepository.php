@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Acme\Repository;
+namespace App\Acme\Repository\UserRepository;
 
-use App\Acme\Authorizer\UserRepositoryInterface;
 use App\Acme\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
