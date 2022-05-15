@@ -7,6 +7,7 @@ use App\Acme\Controller\AuthorizationController;
 use App\Acme\Controller\PrizeController;
 use App\Acme\DoctrineFactory\DoctrineFactory;
 use App\Acme\Entity\MoneyDeposit;
+use App\Acme\Entity\Prize\BonusesPrize;
 use App\Acme\Entity\Prize\MoneyPrize;
 use App\Acme\Entity\User;
 use App\Acme\PrizeGenerator\BonusesPrizeGenerator;
@@ -16,15 +17,15 @@ use App\Acme\RandomGenerator\RandomArrayElementGeneratorInterface;
 use App\Acme\RandomGenerator\RandomGenerator;
 use App\Acme\RandomGenerator\RandomNumberGeneratorInterface;
 use App\Acme\Repository\MoneyDepositRepository\MoneyDepositRepositoryInterface;
+use App\Acme\Repository\BonusesPrizeRepository\BonusesPrizeRepositoryInterface;
 use App\Acme\Repository\MoneyPrizeRepository\MoneyPrizeRepositoryInterface;
 use App\Acme\Repository\UserRepository\UserRepositoryInterface;
-use App\Acme\Service\PrizeService;
+use App\Acme\Service\PrizeService\PrizeService;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ServiceContainer
 {
     private ?EntityManagerInterface $entityManager = null;
-    private ?UserRepositoryInterface $userRepository = null;
     private ?Authorizer $authorizer = null;
     private ?AuthorizationController $authorizationController = null;
     private ?PrizeController $prizeController = null;
@@ -33,8 +34,6 @@ class ServiceContainer
     private ?MoneyPrizeGenerator $moneyPrizeGenerator = null;
     private ?BonusesPrizeGenerator $bonusesPrizeGenerator = null;
     private ?RandomGenerator $randomGenerator = null;
-    private ?MoneyDepositRepositoryInterface $moneyDepositRepository = null;
-    private ?MoneyPrizeRepositoryInterface $moneyPrizeRepository = null;
 
     public function getEntityManager(): EntityManagerInterface
     {
@@ -45,9 +44,7 @@ class ServiceContainer
 
     public function getUserRepository(): UserRepositoryInterface
     {
-        $this->userRepository ??= $this->getEntityManager()->getRepository(User::class);
-
-        return $this->userRepository;
+        return $this->getEntityManager()->getRepository(User::class);
     }
 
     public function getAuthorizer(): Authorizer
@@ -73,7 +70,13 @@ class ServiceContainer
 
     public function getPrizeService(): PrizeService
     {
-        $this->prizeService ??= new PrizeService($this->getCompositePrizeGenerator(), $this->getEntityManager());
+        $this->prizeService ??= new PrizeService(
+            $this->getCompositePrizeGenerator(),
+            $this->getEntityManager(),
+            $this->getMoneyDepositRepository(),
+            $this->getMoneyPrizeRepository(),
+            $this->getBonusesPrizeRepository(),
+        );
 
         return $this->prizeService;
     }
@@ -120,17 +123,18 @@ class ServiceContainer
         return $this->randomGenerator;
     }
 
-    public function getMoneyDepositRepository(): ?MoneyDepositRepositoryInterface
+    public function getMoneyDepositRepository(): MoneyDepositRepositoryInterface
     {
-        $this->moneyDepositRepository ??= $this->getEntityManager()->getRepository(MoneyDeposit::class);
-
-        return $this->moneyDepositRepository;
+        return $this->getEntityManager()->getRepository(MoneyDeposit::class);
     }
 
-    public function getMoneyPrizeRepository(): ?MoneyPrizeRepositoryInterface
+    public function getMoneyPrizeRepository(): MoneyPrizeRepositoryInterface
     {
-        $this->moneyPrizeRepository ??= $this->getEntityManager()->getRepository(MoneyPrize::class);
+        return $this->getEntityManager()->getRepository(MoneyPrize::class);
+    }
 
-        return $this->moneyPrizeRepository;
+    public function getBonusesPrizeRepository(): BonusesPrizeRepositoryInterface
+    {
+        return $this->getEntityManager()->getRepository(BonusesPrize::class);
     }
 }

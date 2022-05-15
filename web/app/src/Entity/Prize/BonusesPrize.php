@@ -3,10 +3,11 @@
 namespace App\Acme\Entity\Prize;
 
 use App\Acme\Entity\User;
+use App\Acme\Repository\BonusesPrizeRepository\BonusesPrizeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=BonusesPrizeRepository::class)
  * @ORM\Table(indexes={
  *     @ORM\Index(columns={"user_id"})
  * })

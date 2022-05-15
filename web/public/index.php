@@ -1,6 +1,7 @@
 <?php
 
-use App\Acme\Kernel;use Symfony\Component\HttpFoundation\Request;
+use App\Acme\Kernel;
+use Symfony\Component\HttpFoundation\Request;
 
 include '../app/vendor/autoload.php';
 

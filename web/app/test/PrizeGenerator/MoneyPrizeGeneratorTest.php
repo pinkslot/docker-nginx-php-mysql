@@ -6,7 +6,7 @@ use App\Acme\Entity\User;
 use App\Acme\PrizeGenerator\MoneyPrizeGenerator;
 use App\Acme\RandomGenerator\RandomNumberGeneratorInterface;
 use App\Acme\Repository\MoneyDepositRepository\MoneyDepositRepositoryInterface;
-use App\Acme\Repository\MoneyPrizeRepository\MoneyPrizeRepositoryInterface;
+use App\Acme\Repository\BonusesPrizeRepository\BonusesPrizeRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
 class MoneyPrizeGeneratorTest extends TestCase
@@ -26,7 +26,7 @@ class MoneyPrizeGeneratorTest extends TestCase
             ->with(...$randomInRange)
             ->willReturn($prizeAmount)
         ;
-        $moneyPrizeRepository = $this->getMockBuilder(MoneyPrizeRepositoryInterface::class)->getMock();
+        $moneyPrizeRepository = $this->getMockBuilder(BonusesPrizeRepositoryInterface::class)->getMock();
         $moneyPrizeRepository->method('getTotalAmount')->willReturn($totalPrize);
         $moneyDepositRepository = $this->getMockBuilder(MoneyDepositRepositoryInterface::class)->getMock();
         $moneyDepositRepository->method('getTotalAmount')->willReturn($totalDeposit);

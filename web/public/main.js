@@ -1,8 +1,8 @@
 (() => {
-    const fillState = ({money, bonuses}) => {
-
-        document.getElementById('money-count').innerHTML = money;
-        document.getElementById('bonuses-count').innerHTML = bonuses;
+    const fillState = ({bonusesAmount, moneyAmount, moneyBalance}) => {
+        document.getElementById('money-count').innerHTML = moneyAmount;
+        document.getElementById('bonuses-count').innerHTML = bonusesAmount;
+        document.getElementById('money-balance').innerHTML = moneyBalance;
     }
 
     const button = document.getElementById('take-prize');
