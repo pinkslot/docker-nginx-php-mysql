@@ -1,6 +1,8 @@
 <?php
 
-use App\Acme\Kernel;use Symfony\Component\HttpFoundation\Request;include '../app/vendor/autoload.php';
+use App\Acme\Kernel;use Symfony\Component\HttpFoundation\Request;
+
+include '../app/vendor/autoload.php';
 
 $request = Request::createFromGlobals();
 $kernel = new Kernel();
